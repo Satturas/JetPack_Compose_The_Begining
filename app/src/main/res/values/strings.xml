@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JetPack Compose The Begining</string>
+    <string name="hello_android">Hello, Android!</string>
+    <string name="jetpack_text">Jetpack Compose — это современный набор инструментов для создания пользовательского интерфейса (UI) на Android, разработанный Google</string>
 </resources>

@@ -61,7 +61,12 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            RoundInitials("${contact.name.first()}${contact.familyName.first()}")
+            if (contact.imageRes == null) {
+                RoundInitials("${contact.name.first()}${contact.familyName.first()}")
+            } else {
+                Avatar()
+            }
+
             Text(
                 "${contact.name} ${contact.surname.orEmpty()}",
                 style = MaterialTheme.typography.body1,
@@ -167,7 +172,8 @@ class MainActivity : ComponentActivity() {
                 familyName = "Лукашин",
                 phone = "+7 495 495 95 95",
                 address = "г. Москва, 3-я улица Строителей, д. 25, кв. 12",
-                isFavorite = true
+                isFavorite = true,
+                imageRes = R.drawable.avatar
             )
         )
     }
@@ -177,7 +183,7 @@ class MainActivity : ComponentActivity() {
         Box(
             contentAlignment = Alignment.TopCenter,
             modifier = Modifier
-                .padding(8.dp)
+                .padding(16.dp)
         ) {
             Box(
                 contentAlignment = Alignment.Center
@@ -191,6 +197,23 @@ class MainActivity : ComponentActivity() {
                     text = initials
                 )
             }
+        }
+    }
+
+    @Composable
+    fun Avatar() {
+        Box(
+            contentAlignment = Alignment.TopCenter,
+            modifier = Modifier
+                .padding(16.dp)
+        ) {
+            Image(
+                modifier = Modifier
+                    .width(120.dp)
+                    .height(height = 80.dp),
+                painter = painterResource(id = R.drawable.avatar),
+                contentDescription = null,
+            )
         }
     }
 

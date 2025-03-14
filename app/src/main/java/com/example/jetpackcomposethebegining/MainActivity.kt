@@ -31,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -94,9 +95,8 @@ class MainActivity : ComponentActivity() {
                     style = MaterialTheme.typography.body1,
                     fontStyle = FontStyle.Italic,
                     fontWeight = FontWeight(400),
+                    textAlign = TextAlign.End
                 )
-
-
                 Text(
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
@@ -105,75 +105,48 @@ class MainActivity : ComponentActivity() {
                     text = "${contact.phone}",
                     style = MaterialTheme.typography.body2,
                 )
-
             }
             Row(
                 modifier = Modifier
                     .padding(top = 16.dp)
             ) {
-                Row(
-                    modifier = Modifier
-                        .weight(0.5F),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .padding(start = 140.dp)
-                            .align(Alignment.CenterVertically),
-                        text = "Адрес:",
-                        style = MaterialTheme.typography.body1,
-                        fontStyle = FontStyle.Italic,
-                        fontWeight = FontWeight(400)
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .weight(0.5F),
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .padding(start = 8.dp),
-                        maxLines = 3,
-                        text = "${contact.address}"
-                    )
-                }
-            }
-            Row() {
                 Text(
                     modifier = Modifier
-                        .padding(top = 16.dp)
-                        .padding(start = 140.dp)
-                        .align(Alignment.CenterVertically),
+                        .align(Alignment.CenterVertically)
+                        .weight(0.5F),
                     text = "Адрес:",
                     style = MaterialTheme.typography.body1,
                     fontStyle = FontStyle.Italic,
-                    fontWeight = FontWeight(400)
+                    fontWeight = FontWeight(400),
+                    textAlign = TextAlign.End
                 )
                 Text(
                     modifier = Modifier
-                        .padding(top = 16.dp)
-                        .padding(start = 8.dp),
+                        .padding(start = 8.dp)
+                        .weight(0.5F),
                     maxLines = 3,
                     text = "${contact.address}"
+
                 )
             }
             if (true/*!contact.email.isNullOrEmpty()*/) {
-                Row() {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                ) {
                     Text(
                         modifier = Modifier
-                            .padding(top = 16.dp)
-                            .padding(start = 0.dp)
-                            .align(Alignment.CenterVertically),
+                            .align(Alignment.CenterVertically)
+                            .weight(0.5F),
                         text = "E-mail:",
                         style = MaterialTheme.typography.body1,
                         fontStyle = FontStyle.Italic,
-                        fontWeight = FontWeight(400)
+                        fontWeight = FontWeight(400),
+                        textAlign = TextAlign.End
                     )
                     Text(
                         modifier = Modifier
-                            .padding(top = 16.dp)
+                            .weight(0.5F)
                             .padding(start = 8.dp)
                             .align(Alignment.CenterVertically),
                         text = "${contact.email}"

@@ -129,7 +129,7 @@ class MainActivity : ComponentActivity() {
 
                 )
             }
-            if (true/*!contact.email.isNullOrEmpty()*/) {
+            if (!contact.email.isNullOrEmpty()) {
                 Row(
                     modifier = Modifier
                         .padding(top = 16.dp)
@@ -154,7 +154,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
     }
 
 

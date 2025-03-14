@@ -56,32 +56,134 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun ContactColumn(contact: Contact) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .background(Color.LightGray)
-                .padding(8.dp)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier.weight(1F),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                RoundInitials("${contact.name.first()}${contact.familyName.first()}")
-                Text("Имя: ${contact.name}")
-                Text("Отчество: ${contact.surname.orEmpty()}")
-                Text("Фамилия: ${contact.familyName}")
-                Text("Мобильный телефон: ${contact.phone}")
-                Text("Адрес: ${contact.address}")
-            }
-            if (contact.isFavorite) Image(
-                modifier = Modifier.padding(start = 16.dp)
-                    .align(Alignment.CenterVertically),
-                painter = painterResource(id = android.R.drawable.star_big_on),
-                contentDescription = null
+            RoundInitials("${contact.name.first()}${contact.familyName.first()}")
+            Text(
+                "${contact.name} ${contact.surname.orEmpty()}",
+                style = MaterialTheme.typography.body1,
+                fontWeight = FontWeight(500)
             )
+            Row(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Text(
+                    text = "${contact.familyName}",
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = FontWeight(500),
+                )
+                if (contact.isFavorite) Image(
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .align(Alignment.CenterVertically),
+                    painter = painterResource(id = android.R.drawable.star_big_on),
+                    contentDescription = null
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .padding(top = 60.dp)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .weight(0.5F),
+                    text = "Телефон:",
+                    style = MaterialTheme.typography.body1,
+                    fontStyle = FontStyle.Italic,
+                    fontWeight = FontWeight(400),
+                )
+
+
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 8.dp)
+                        .weight(0.5F),
+                    text = "${contact.phone}",
+                    style = MaterialTheme.typography.body2,
+                )
+
+            }
+            Row(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .weight(0.5F),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .padding(start = 140.dp)
+                            .align(Alignment.CenterVertically),
+                        text = "Адрес:",
+                        style = MaterialTheme.typography.body1,
+                        fontStyle = FontStyle.Italic,
+                        fontWeight = FontWeight(400)
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .weight(0.5F),
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .padding(start = 8.dp),
+                        maxLines = 3,
+                        text = "${contact.address}"
+                    )
+                }
+            }
+            Row() {
+                Text(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .padding(start = 140.dp)
+                        .align(Alignment.CenterVertically),
+                    text = "Адрес:",
+                    style = MaterialTheme.typography.body1,
+                    fontStyle = FontStyle.Italic,
+                    fontWeight = FontWeight(400)
+                )
+                Text(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .padding(start = 8.dp),
+                    maxLines = 3,
+                    text = "${contact.address}"
+                )
+            }
+            if (true/*!contact.email.isNullOrEmpty()*/) {
+                Row() {
+                    Text(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .padding(start = 0.dp)
+                            .align(Alignment.CenterVertically),
+                        text = "E-mail:",
+                        style = MaterialTheme.typography.body1,
+                        fontStyle = FontStyle.Italic,
+                        fontWeight = FontWeight(400)
+                    )
+                    Text(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .padding(start = 8.dp)
+                            .align(Alignment.CenterVertically),
+                        text = "${contact.email}"
+                    )
+                }
+            }
         }
+
     }
+
 
     @Preview(name = "portrait", showSystemUi = true)
     @Composable
@@ -101,7 +203,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun RoundInitials(initials: String) {
         Box(
-            contentAlignment = Alignment.TopCenter
+            contentAlignment = Alignment.TopCenter,
+            modifier = Modifier
+                .padding(8.dp)
         ) {
             Box(
                 contentAlignment = Alignment.Center
@@ -110,8 +214,10 @@ class MainActivity : ComponentActivity() {
                     painter = painterResource(id = R.drawable.circle),
                     contentDescription = null,
                 )
-                Text(fontWeight = FontWeight(1000),
-                text = initials)
+                Text(
+                    fontWeight = FontWeight(1000),
+                    text = initials
+                )
             }
         }
     }
@@ -204,7 +310,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
 
 
     @Composable

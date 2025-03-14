@@ -29,13 +29,91 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
+
+    val contact1 = Contact(
+        familyName = "Лукашин",
+        name = "Евгений Андреевич",
+        phone = R.string.phone.toString(),
+        email = R.string.email.toString(),
+        address = R.string.address.toString()
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { HelloWorld() }
+        setContent { ContactDetails(contact1) }
+    }
+
+    @Composable
+    private fun ContactDetails(contact: Contact) {
+
+    }
+
+    @Composable
+    fun ContactColumn(contact: Contact) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .background(Color.LightGray)
+                .padding(8.dp)
+        ) {
+            Column(
+                modifier = Modifier.weight(1F),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                RoundInitials("${contact.name.first()}${contact.familyName.first()}")
+                Text("Имя: ${contact.name}")
+                Text("Отчество: ${contact.surname.orEmpty()}")
+                Text("Фамилия: ${contact.familyName}")
+                Text("Мобильный телефон: ${contact.phone}")
+                Text("Адрес: ${contact.address}")
+            }
+            if (contact.isFavorite) Image(
+                modifier = Modifier.padding(start = 16.dp)
+                    .align(Alignment.CenterVertically),
+                painter = painterResource(id = android.R.drawable.star_big_on),
+                contentDescription = null
+            )
+        }
+    }
+
+    @Preview(name = "portrait", showSystemUi = true)
+    @Composable
+    fun ContactColumnPreview() {
+        ContactColumn(
+            contact = Contact(
+                name = "Евгений",
+                surname = "Андреевич",
+                familyName = "Лукашин",
+                phone = "+7 495 495 95 95",
+                address = "г. Москва, 3-я улица Строителей, д. 25, кв. 12",
+                isFavorite = true
+            )
+        )
+    }
+
+    @Composable
+    fun RoundInitials(initials: String) {
+        Box(
+            contentAlignment = Alignment.TopCenter
+        ) {
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.circle),
+                    contentDescription = null,
+                )
+                Text(fontWeight = FontWeight(1000),
+                text = initials)
+            }
+        }
     }
 
     @Composable
@@ -66,7 +144,7 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier
                 .size(240.dp, 120.dp)
                 .background(Color.Black),
-            painter = painterResource(id = R.drawable.image),
+            painter = painterResource(id = R.drawable.circle),
             contentScale = ContentScale.None,
             alignment = Alignment.TopEnd,
             contentDescription = stringResource(id = R.string.standard_icon)
@@ -88,24 +166,6 @@ class MainActivity : ComponentActivity() {
         )
     }
 
-    @Composable
-    fun RoundInitials(initials: String) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Box(
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.image),
-                    contentDescription = null,
-                )
-                Text(initials)
-            }
-        }
-    }
-
     @Preview(name = "portrait", showSystemUi = true)
     @Composable
     fun RoundInitialsPreview() {
@@ -113,7 +173,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun ContactColumn(contact: Contact) {
+    fun ContactColumn5(contact: Contact) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -145,19 +205,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Preview(name = "portrait", showSystemUi = true)
-    @Composable
-    fun ContactColumnPreview() {
-        ContactColumn(
-            contact = Contact(
-                name = "Евгений",
-                surname = "Андреевич",
-                familyName = "Лукашин",
-                phone = "+7 495 495 95 95",
-                address = "г. Москва, 3-я улица Строителей, д. 25, кв. 12"
-            )
-        )
-    }
+
 
     @Composable
     fun ContactColumn2(contact: Contact) {
@@ -246,7 +294,8 @@ class MainActivity : ComponentActivity() {
                 Text("Адрес: ${contact.address}")
             }
             if (contact.isFavorite) Image(
-                modifier = Modifier.padding(start = 16.dp)
+                modifier = Modifier
+                    .padding(start = 16.dp)
                     .align(Alignment.CenterVertically),
                 painter = painterResource(id = android.R.drawable.star_big_on),
                 contentDescription = null

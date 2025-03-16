@@ -37,11 +37,10 @@ class MainActivity : ComponentActivity() {
     )
 
     private val contact2 = Contact(
-        name = "Евгений",
-        surname = "Андреевич",
-        familyName = "Лукашин",
-        phone = "+7 495 495 95 95",
-        address = "г. Москва, 3-я улица Строителей, д. 25, кв. 12",
+        name = "Василий",
+        familyName = "Пупкин",
+        phone = "+7 999 777 77 77",
+        address = "Бейкер стрит 221Б",
         isFavorite = false,
         imageRes = R.drawable.avatar
     )
@@ -49,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { ContactDetails(contact1) }
+        setContent { ContactDetails(contact2) }
     }
 
     @Composable
